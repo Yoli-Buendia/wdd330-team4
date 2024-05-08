@@ -5,11 +5,12 @@ function renderCartContents() {
 
   // Check if cartItems is null or undefined
   if (cartItems) {
-      const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-      document.querySelector(".product-list").innerHTML = htmlItems.join("");
+    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    document.querySelector(".product-list").innerHTML = htmlItems.join("");
   } else {
-      // Display a message if cartItems is null of undefine
-      document.querySelector(".product-list").innerHTML = "<p>Your cart is empty!</p>";
+    // Display a message if cartItems is null of undefine
+    document.querySelector(".product-list").innerHTML =
+      "<p>Your cart is empty!</p>";
   }
 }
 
