@@ -165,6 +165,14 @@ button {
 .product-detail img {
   width: 100%;
 }
+.product-card__discount{
+  color: red;
+  font-size: 16px;
+}
+
+.product-card__retail_price{
+  font-size: 12px;
+}
 
 /* Start cart list card styles */
 .cart-card {
