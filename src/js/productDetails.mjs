@@ -21,33 +21,33 @@ function addProductToCart(product) {
     addProductToCart(product);
   }
 
-function renderProductDetails(product) {
-  document.getElementById("productName").innerText = product.Name;
-  document.getElementById("productNameWithoutBrand").innerText = product.NameWithoutBrand;
-  document.getElementById("productImage").setAttribute("src", product.Image);
-  document.getElementById("productImage").setAttribute("alt", product.NameWithoutBrand);
+  export function renderProductDetails(product) {
+    document.getElementById("productName").innerText = product.Name;
+    document.getElementById("productNameWithoutBrand").innerText = product.NameWithoutBrand;
+    document.getElementById("productImage").setAttribute("src", product.Image);
+    document.getElementById("productImage").setAttribute("alt", product.NameWithoutBrand);
 
-  if(product.FinalPrice < product.SuggestedRetailPrice){
-    //Consider putting this in Utility
-    const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD',});
-    
-    const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice)
-    document.getElementById("productRetailPrice").innerText = `Retail Price: ${currency.format(product.SuggestedRetailPrice)}`;
-    document.getElementById("productDiscountAmount").innerText = `Discount: ${currency.format(discountAmount)}`;
-  }
+    if(product.FinalPrice < product.SuggestedRetailPrice){
+      //Consider putting this in Utility
+      const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD',});
+      
+      const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice)
+      document.getElementById("productRetailPrice").innerText = `Retail Price: ${currency.format(product.SuggestedRetailPrice)}`;
+      document.getElementById("productDiscountAmount").innerText = `Discount: ${currency.format(discountAmount)}`;
+    }
 
-  document.getElementById("productFinalPrice").innerText = `Sale Price: $${product.FinalPrice}`;
-  document.getElementById("productColorName").innerText = product.Colors[0].ColorName;
-  document.getElementById("productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
-  document.getElementById("addToCart").setAttribute("data-id", product.Id);
+    document.getElementById("productFinalPrice").innerText = `Sale Price: $${product.FinalPrice}`;
+    document.getElementById("productColorName").innerText = product.Colors[0].ColorName;
+    document.getElementById("productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
+    document.getElementById("addToCart").setAttribute("data-id", product.Id);
 
-  document
+    document
 
-.getElementById("addToCart")
-.addEventListener("click", addToCartHandler);
+  .getElementById("addToCart")
+  .addEventListener("click", addToCartHandler);
 }
 
-function discountHome (product){
+/*function discountHome (product){
   if(product.FinalPrice < product.SuggestedRetailPrice){
     //Consider putting this in Utility
     const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD',});
@@ -64,8 +64,8 @@ function discountHome (product){
     document.getElementById("productDiscountAmount-home3").innerText = `Discount: ${currency.format(discountAmount)}`;
     document.getElementById("productDiscountAmount-home4").innerText = `Discount: ${currency.format(discountAmount)}`;*/
     
-    document.getElementsByClassName("product-card__discount-home").innerText = `Discount: ${currency.format(discountAmount)}`;
-   // console.log(document.getElementById("productDiscountAmount-home1"));
+   /* document.getElementsByClassName("product-card__discount-home").innerText = `Discount: ${currency.format(discountAmount)}`;
+   console.log(document.getElementById("productDiscountAmount-home1"));
 
   }
-}
+}*/

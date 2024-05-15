@@ -1,5 +1,6 @@
 import { getData } from "./productData.mjs";
-import { qs, renderListWithTemplate, filterList } from "./utils.mjs";
+import { qs, renderListWithTemplate, filterList,discountHome } from "./utils.mjs";
+
 export default async function productList(selector, category) {
     const items = await getData(category);
     const filter = ["880RR", "985RF", "985PR", "344YJ"]
@@ -16,7 +17,7 @@ function productCardTemplate(product) {
             />
             <h3 class="card__brand">${product.Name}</h3>
             <h2 class="card__name">${product.NameWithoutBrand}</h2>
-            <p class="product-card__price">${product.FinalPrice}</p></a
-        >
+            <p class="product-card__price">${product.FinalPrice}</p>
+            <p class="product-card__discount">${product.discountHome}</p></a>
     </li>`
 }
