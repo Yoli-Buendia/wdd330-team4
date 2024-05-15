@@ -29,6 +29,22 @@ export function getParam(param) {
   return product;
 }
 
+export function renderListWithTemplate(templateFn, 
+  parentElement, 
+  list, 
+  position = "afterbegin", 
+  clear = true) {
+    const products = list.map(items => templateFn(items));
+    if(clear){
+      parentElement.innerHtml = "";
+    }
+    parentElement.insertAdjacentHTML(position, products.join(''));
+}
+
+export function filterList(list, filter){
+  const newList = list.filter((listItem) => filter.includes(listItem.Id));
+  return newList;
+}
 export function getcartCount(){
   const cartItems = getLocalStorage("so-cart");
   const count = cartItems.length;
