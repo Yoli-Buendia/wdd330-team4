@@ -2,6 +2,7 @@ import { getLocalStorage, getcartCount } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
+  let cartSubtotal = 0;
   let cartSubtotal = 0;  let cartSubtotal = 0;
 
   // Check if cartItems is null or undefined
