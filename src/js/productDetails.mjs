@@ -1,4 +1,4 @@
-import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, getcartCount } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
 
@@ -44,4 +44,5 @@ function renderProductDetails(product) {
 
   .getElementById("addToCart")
   .addEventListener("click", addToCartHandler);
+  getcartCount();
 }

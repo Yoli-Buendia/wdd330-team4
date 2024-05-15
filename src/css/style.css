@@ -210,6 +210,18 @@ button {
   grid-column: 3;
 }
 
+/*superscript to add number on cart icon*/
+.badge {
+  position: absolute;
+  margin-top: -25%;
+  right: 0;
+  background-color: tan;
+  color: black;
+  font-size: 12px;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -228,3 +240,4 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
