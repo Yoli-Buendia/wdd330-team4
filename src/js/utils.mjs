@@ -72,13 +72,9 @@ export function renderProductDetails(product) {
 .addEventListener("click", addToCartHandler);
 }
 
-export function discountHome (product){
-  if(product.FinalPrice < product.SuggestedRetailPrice){
-    //Consider putting this in Utility
-    const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD',});
-    
-    const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice)
+export function currencyY(product){
+  const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD',});
+  const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice)
 
-    document.getElementById("productDiscountAmount").innerText = `${currency.format(discountAmount)}`;
-   
-  }}
+  return currency.format(discountAmount)
+}
