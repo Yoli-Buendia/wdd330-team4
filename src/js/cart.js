@@ -2,10 +2,15 @@ import { getLocalStorage, getcartCount } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
+  let cartSubtotal = 0;
   // Check if cartItems is null or undefined
   if (cartItems) {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    cartSubtotal = calculateTotal(cartItems);
+    // this space is for additional total calculations
+    const cartTotal = cartSubtotal;
     document.querySelector(".product-list").innerHTML = htmlItems.join("");
+    document.getElementById("cart-total").innerHTML = `Total: $${cartTotal}`;
     //Display # of items in the cart
  
   } else {
@@ -33,6 +38,15 @@ function cartItemTemplate(item) {
 </li>`;
 
   return newItem;
+}
+
+function calculateTotal(cart) {
+  let total = 0;
+  cart.forEach((cartItem) => {
+    total += cartItem.FinalPrice;
+  });
+  document.querySelector(".cart-footer").classList.remove("hide");
+  return total;
 }
 
 renderCartContents();
