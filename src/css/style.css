@@ -165,12 +165,12 @@ button {
 .product-detail img {
   width: 100%;
 }
-.product-card__discount   {
+.product-card__discount {
   color: red;
   font-size: 16px;
 }
 
-.product-card__retail_price{
+.product-card__retail_price {
   font-size: 12px;
 }
 
@@ -224,10 +224,6 @@ button {
   font-size: 12px;
   padding: 2px 5px;
   border-radius: 50%;
-}
-
-.hide {
-  display: none;
 }
 
 @media screen and (min-width: 500px) {

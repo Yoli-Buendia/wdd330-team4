@@ -3,8 +3,6 @@ import { getLocalStorage, getcartCount } from "./utils.mjs";
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   let cartSubtotal = 0;
-  let cartSubtotal = 0;  let cartSubtotal = 0;
-
   // Check if cartItems is null or undefined
   if (cartItems) {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
@@ -15,7 +13,6 @@ function renderCartContents() {
     document.getElementById("cart-total").innerHTML = `Total: $${cartTotal}`;
     //Display # of items in the cart
  
-    document.getElementById("cart-total").innerHTML = `Total: $${cartTotal}`;
   } else {
     // Display a message if cartItems is null of undefine
     document.querySelector(".product-list").innerHTML =
