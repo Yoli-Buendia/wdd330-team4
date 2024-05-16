@@ -1,4 +1,4 @@
-import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, qs } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
 
@@ -18,6 +18,7 @@ function addProductToCart(product) {
   async function addToCartHandler(e) {
     const product = await findProductById(e.target.dataset.id);
     addProductToCart(product);
+    animateCart();
   }
 
 function renderProductDetails(product) {
@@ -41,7 +42,15 @@ function renderProductDetails(product) {
     document.getElementById("addToCart").setAttribute("data-id", product.Id);
 
     document
+      .getElementById("addToCart")
+      .addEventListener("click", addToCartHandler);
+}
 
-  .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);
+function animateCart() {
+  let cartIcon = qs(".cart > a > svg");
+  console.log(cartIcon);
+  // Either open the backpack flap, 
+  // wiggle back and forth
+  // or stretch and compress
+
 }
