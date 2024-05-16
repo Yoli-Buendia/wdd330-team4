@@ -9,16 +9,14 @@ function renderCartContents() {
     cartSubtotal = calculateTotal(cartItems);
     const cartTotal = cartSubtotal;
     document.querySelector(".product-list").innerHTML = htmlItems.join("");
-    document.getElementById("cart-total").innerHTML = 'Total: $${cartTotal}';
+    document.getElementById("cart-total").innerHTML = `Total: $${cartTotal}`;
     //Display # of items in the cart
- 
   } else {
     // Display a message if cartItems is null of undefine
     document.querySelector(".product-list").innerHTML =
       "<p>Your cart is empty!</p>";
   }
 }
-
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
@@ -39,15 +37,14 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
-function calculateTotal(cart) {	 	 
-  let total = 0;	 
-  cart.forEach((cartItem) => {	 
-  total += cartItem.FinalPrice;	 
-  });	 
-  document.querySelector(".cart-footer").classList.remove("hide");	 
-  return total;	 
-  }	
+function calculateTotal(cart) {
+  let total = 0;
+  cart.forEach((cartItem) => {
+    total += cartItem.FinalPrice;
+  });
+  document.querySelector(".cart-footer").classList.remove("hide");
+  return total;
+}
 
 renderCartContents();
 getcartCount();
-
