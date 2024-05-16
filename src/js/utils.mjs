@@ -36,3 +36,20 @@ export function getcartCount(){
   return document.getElementById("cart_count").innerHTML = count;
 
 }
+
+export function renderListWithTemplate(templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = true) {
+    const products = list.map(items => templateFn(items));
+    if(clear){
+      parentElement.innerHtml = "";
+    }
+    parentElement.insertAdjacentHTML(position, products.join(''));
+}
+ 
+export function filterList(list, filter){
+  const newList = list.filter((listItem) => filter.includes(listItem.Id));
+  return newList;
+}
