@@ -48,9 +48,8 @@ function renderProductDetails(product) {
 
 function animateCart() {
   let cartIcon = qs(".cart > a > svg");
-  console.log(cartIcon);
-  // Either open the backpack flap, 
-  // wiggle back and forth
-  // or stretch and compress
-
+  cartIcon.classList.add("animate-cart");
+  setTimeout(() => {
+    cartIcon.classList.remove("animate-cart");
+  }, 500);
 }

@@ -214,6 +214,25 @@ button {
   display: none;
 }
 
+.animate-cart {
+  animation-duration: 0.5s;
+  animation-name: wobble;
+  animation-direction: alternate;
+  transition-timing-function: ease-in-out;
+}
+
+@keyframes wobble {
+  50% {
+    transform: rotate(0deg);
+    transform: scale(1.5, 1.5);
+  }
+
+  100% {
+    transform: rotat(0deg);
+    transform: scale(1, 1);
+  }
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
