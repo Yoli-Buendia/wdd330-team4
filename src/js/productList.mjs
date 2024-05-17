@@ -1,5 +1,6 @@
 import { getData } from "./productData.mjs";
 import { qs, renderListWithTemplate, filterList } from "./utils.mjs";
+
 export default async function productList(selector, category) {
     const items = await getData(category);
     const filter = ["880RR", "985RF", "985PR", "344YJ"]
@@ -7,6 +8,7 @@ export default async function productList(selector, category) {
     const element = qs(selector);
     renderListWithTemplate(productCardTemplate, element, newItems);
 }
+
 function productCardTemplate(product) {
     return `<li class="product-card">
         <a href="product_pages/index.html?product=${product.Id}">
