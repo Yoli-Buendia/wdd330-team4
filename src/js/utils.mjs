@@ -29,7 +29,7 @@ export function getParam(param) {
   return product;
 }
 
-export function getcartCount(){
+export function getCartCount(){
   const cartItems = getLocalStorage("so-cart");
   const count = cartItems.length;
   //Display # of items in the cart
