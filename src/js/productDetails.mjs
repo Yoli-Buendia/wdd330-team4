@@ -1,11 +1,11 @@
-import { setLocalStorage, getLocalStorage, getcartCount } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, qs, getCartCount } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
 
 export default async function productDetails(productId) {
 
   const product = await findProductById(productId);
-  
+
   if (typeof product !== "undefined") {
     renderProductDetails(product);
   }
@@ -23,6 +23,8 @@ function addProductToCart(product) {
 async function addToCartHandler(e) {
   const product = await findProductById(e.target.dataset.id);
   addProductToCart(product);
+  animateCart();
+  getCartCount();
 }
 
 function renderProductDetails(product) {
@@ -38,21 +40,28 @@ function renderProductDetails(product) {
     const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice)
     document.getElementById("productRetailPrice").innerText = `Retail Price: ${currency.format(product.SuggestedRetailPrice)}`;
     document.getElementById("productDiscountAmount").innerText = `Discount: ${currency.format(discountAmount)}`;
+    document.getElementById("productFinalPrice").innerText = `Sale Price: $${product.FinalPrice}`;
+    document.getElementById("productColorName").innerText = product.Colors[0].ColorName;
+    document.getElementById("productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
+    document.getElementById("addToCart").setAttribute("data-id", product.Id);
+
+    document
+      .getElementById("addToCart")
+      .addEventListener("click", addToCartHandler);
+
+    getCartCount();
   }
-
-  document.getElementById("productFinalPrice").innerText = `Sale Price: $${product.FinalPrice}`;
-  document.getElementById("productColorName").innerText = product.Colors[0].ColorName;
-  document.getElementById("productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
-  document.getElementById("addToCart").setAttribute("data-id", product.Id);
-
-  document
-
-  .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);
-  getcartCount();
 }
 
 function renderEmptyPage(){
   document.getElementById("productName").innerText = "Product unavailable, please try again later.";
   document.getElementById("addToCart").style.display = "none";
+}
+
+function animateCart() {
+  let cartIcon = qs(".cart > a > svg");
+  cartIcon.classList.add("animate-cart");
+  setTimeout(() => {
+    cartIcon.classList.remove("animate-cart");
+  }, 500);
 }

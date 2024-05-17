@@ -1,4 +1,4 @@
-import { getLocalStorage, getcartCount } from "./utils.mjs";
+import { getLocalStorage, getCartCount } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
@@ -47,4 +47,4 @@ function calculateTotal(cart) {
 }
 
 renderCartContents();
-getcartCount();
+getCartCount();

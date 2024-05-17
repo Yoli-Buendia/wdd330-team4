@@ -29,7 +29,7 @@ export function getParam(param) {
   return product;
 }
 
-export function getcartCount(){
+export function getCartCount(){
   const cartItems = getLocalStorage("so-cart");
   const count = cartItems.length;
   //Display # of items in the cart
@@ -48,7 +48,7 @@ export function renderListWithTemplate(templateFn,
     }
     parentElement.insertAdjacentHTML(position, products.join(''));
 }
- 
+
 export function filterList(list, filter){
   const newList = list.filter((listItem) => filter.includes(listItem.Id));
   return newList;
