@@ -47,25 +47,3 @@ function addProductToCart(product) {
   .addEventListener("click", addToCartHandler);
 }
 
-/*function discountHome (product){
-  if(product.FinalPrice < product.SuggestedRetailPrice){
-    //Consider putting this in Utility
-    const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD',});
-    
-    const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice)
-    document.getElementById("productRetailPrice").innerText = `Retail Price: ${currency.format(product.SuggestedRetailPrice)}`;
-
-    
-    document.getElementById("productDiscountAmount").innerText = `Discount: ${currency.format(discountAmount)}`;
-    
-    //id home
-    document.getElementById("productDiscountAmount-home1").innerText = `Discount: ${currency.format(discountAmount)}`;
-    /*document.getElementById("productDiscountAmount-home2").innerText = `Discount: ${currency.format(discountAmount)}`;
-    document.getElementById("productDiscountAmount-home3").innerText = `Discount: ${currency.format(discountAmount)}`;
-    document.getElementById("productDiscountAmount-home4").innerText = `Discount: ${currency.format(discountAmount)}`;*/
-    
-   /* document.getElementsByClassName("product-card__discount-home").innerText = `Discount: ${currency.format(discountAmount)}`;
-   console.log(document.getElementById("productDiscountAmount-home1"));
-
-  }
-}*/
