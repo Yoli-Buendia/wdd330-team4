@@ -8,6 +8,7 @@ export default async function productList(selector, category) {
     const element = qs(selector);
     renderListWithTemplate(productCardTemplate, element, newItems);
 }
+
 function productCardTemplate(product) {
     
     //To display discount amount

@@ -1,17 +1,16 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, getCartCount } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   let cartSubtotal = 0;
-
   // Check if cartItems is null or undefined
   if (cartItems) {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
     cartSubtotal = calculateTotal(cartItems);
-    // this space is for additional total calculations
     const cartTotal = cartSubtotal;
     document.querySelector(".product-list").innerHTML = htmlItems.join("");
     document.getElementById("cart-total").innerHTML = `Total: $${cartTotal}`;
+    //Display # of items in the cart
   } else {
     // Display a message if cartItems is null of undefine
     document.querySelector(".product-list").innerHTML =
@@ -48,3 +47,4 @@ function calculateTotal(cart) {
 }
 
 renderCartContents();
+getCartCount();
