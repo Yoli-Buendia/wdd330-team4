@@ -56,5 +56,5 @@ function renderEmptyPage(){
   document.getElementById("addToCart").style.display = "none";
 }
 
-}
+
 
