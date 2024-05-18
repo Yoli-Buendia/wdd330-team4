@@ -10,6 +10,11 @@ export default async function productList(selector, category) {
 }
 
 function productCardTemplate(product) {
+    
+    //To display discount amount
+    const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD',});
+    const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice);
+   
     return `<li class="product-card">
         <a href="product_pages/index.html?product=${product.Id}">
             <img
@@ -18,7 +23,15 @@ function productCardTemplate(product) {
             />
             <h3 class="card__brand">${product.Name}</h3>
             <h2 class="card__name">${product.NameWithoutBrand}</h2>
-            <p class="product-card__price">${product.FinalPrice}</p></a
-        >
+            <p class="product-card__retail_price">Retail Price: 
+            ${currency.format(product.SuggestedRetailPrice)}
+            </p>
+            <p class="product-card__discount">Discount: 
+            ${currency.format(discountAmount)}
+            </p>
+            <p class="product-card__price">Sale Price: 
+            ${currency.format(product.FinalPrice)}
+            </p>
+            </a>
     </li>`
 }

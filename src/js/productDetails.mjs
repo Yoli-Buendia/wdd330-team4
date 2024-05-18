@@ -35,23 +35,25 @@ function renderProductDetails(product) {
 
   if (product.FinalPrice < product.SuggestedRetailPrice) {
     //Consider putting this in Utility
-    const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', });
+    const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", });
 
     const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice)
     document.getElementById("productRetailPrice").innerText = `Retail Price: ${currency.format(product.SuggestedRetailPrice)}`;
     document.getElementById("productDiscountAmount").innerText = `Discount: ${currency.format(discountAmount)}`;
-    document.getElementById("productFinalPrice").innerText = `Sale Price: $${product.FinalPrice}`;
-    document.getElementById("productColorName").innerText = product.Colors[0].ColorName;
-    document.getElementById("productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
-    document.getElementById("addToCart").setAttribute("data-id", product.Id);
-
-    document
-      .getElementById("addToCart")
-      .addEventListener("click", addToCartHandler);
-
-    getCartCount();
   }
+
+  document.getElementById("productFinalPrice").innerText = `Sale Price: $${product.FinalPrice}`;
+  document.getElementById("productColorName").innerText = product.Colors[0].ColorName;
+  document.getElementById("productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
+  document.getElementById("addToCart").setAttribute("data-id", product.Id);
+
+  document
+    .getElementById("addToCart")
+    .addEventListener("click", addToCartHandler);
+
+  getCartCount();
 }
+
 
 function renderEmptyPage(){
   document.getElementById("productName").innerText = "Product unavailable, please try again later.";
