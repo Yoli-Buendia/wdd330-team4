@@ -49,10 +49,49 @@ export function renderListWithTemplate(templateFn,
     parentElement.insertAdjacentHTML(position, products.join(''));
 }
 
+export async function renderWithTemplate(templateFn, parentElement, callback, 
+    data,
+    position = "afterbegin",
+    clear = true) {
+    
+    if (clear) {
+      parentElement.innerHTML = "";
+    } 
+    const template =  await templateFn(data);
+    parentElement.insertAdjacentHTML(position, template);
+
+    if(callback){
+      callback(data);
+    }
+
+}
+
 export function filterList(list, filter){
   const newList = list.filter((listItem) => filter.includes(listItem.Id));
   return newList;
 }
 
+function loadTemplate (path){
+  return async function (){
+    const response = await fetch(path);
+    if (response.ok){
+      const html = await response.text();
+      return html;
+      }
+        
+   };
+}
+
+ export  function loadHeaderFooter(){
+  const headerTemplateFn = loadTemplate("/partials/header.html");
+  const footerTemplateFn = loadTemplate("/partials/footer.html");
+ 
+  const header = qs("#main-header");
+  const footer = qs("#main-footer");
+  
+   renderWithTemplate(headerTemplateFn, header, getCartCount);
+   renderWithTemplate(footerTemplateFn, footer);
+   
+ }
 
 
