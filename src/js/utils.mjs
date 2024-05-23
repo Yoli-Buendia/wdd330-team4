@@ -31,9 +31,10 @@ export function getParam(param) {
 
 export function getCartCount(){
   const cartItems = getLocalStorage("so-cart");
-  const count = cartItems.length;
+  let count = 0;
+  cartItems.forEach((item) => count += item.Quantity);
   //Display # of items in the cart
-  return document.getElementById("cart_count").innerHTML = count;
+  document.getElementById("cart_count").innerHTML = count;
 
 }
 
