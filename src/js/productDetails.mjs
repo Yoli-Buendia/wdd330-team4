@@ -15,8 +15,16 @@ export default async function productDetails(productId) {
 }
 
 function addProductToCart(product) {
+  // get cart array from storage or if null, set to an empty array
   let cart = getLocalStorage("so-cart") ?? [];
-  cart.push(product);
+  let itemIndex = cart.findIndex((item) => item.Id === product.Id);
+  // if item is in the cart, increment quantity, else set quantity to 1 and add to cart
+  if (itemIndex >= 0) {
+    cart[itemIndex].Quantity += 1;
+  } else {
+    product.Quantity = 1;
+    cart.push(product);
+  }
   setLocalStorage("so-cart", cart);
 }
 
@@ -50,8 +58,6 @@ function renderProductDetails(product) {
   document
     .getElementById("addToCart")
     .addEventListener("click", addToCartHandler);
-
-  getCartCount();
 }
 
 
