@@ -9,6 +9,10 @@ export function qs(selector, parent = document) {
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+// clears all data from local storage for a specific key
+export function RemoveLocalStorage(key) {
+  return localStorage.removeItem(key);
+}
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
@@ -25,14 +29,16 @@ export function setClick(selector, callback) {
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get('product');
+  const product = urlParams.get("product");
   return product;
 }
 
 export function getCartCount(){
   const cartItems = getLocalStorage("so-cart");
   let count = 0;
-  cartItems.forEach((item) => count += item.Quantity);
+  if(cartItems){
+    cartItems.forEach((item) => count += item.Quantity);
+  }
   //Display # of items in the cart
   document.getElementById("cart_count").innerHTML = count;
 
@@ -45,9 +51,9 @@ export function renderListWithTemplate(templateFn,
   clear = true) {
     const products = list.map(items => templateFn(items));
     if(clear){
-      parentElement.innerHtml = "";
+      parentElement.textContent = "";
     }
-    parentElement.insertAdjacentHTML(position, products.join(''));
+    parentElement.insertAdjacentHTML(position, products.join(""));
 }
 
 export async function renderWithTemplate(templateFn, parentElement, callback, 
@@ -56,7 +62,7 @@ export async function renderWithTemplate(templateFn, parentElement, callback,
     clear = true) {
     
     if (clear) {
-      parentElement.innerHTML = "";
+      parentElement.textContent = "";
     } 
     const template =  await templateFn(data);
     parentElement.insertAdjacentHTML(position, template);
