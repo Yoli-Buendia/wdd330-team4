@@ -1,12 +1,12 @@
 import { findProductById } from "./productData.mjs";
-import { getLocalStorage, setLocalStorage, RemoveLocalStorage, loadHeaderFooter, qs, renderListWithTemplate } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, RemoveLocalStorage, loadHeaderFooter, qs, renderListWithTemplate, getCartCount } from "./utils.mjs";
 
 export default async function shoppingCart() {
-  const cartItems = getLocalStorage("so-cart");
+  const cartItems = getLocalStorage("so-cart") ?? [];
   let cartSubtotal = 0;
   const element = qs(".product-list");
 
-  if (cartItems) {
+  if (cartItems.length > 0) {
     renderListWithTemplate(cartItemTemplate, element, cartItems);
     cartSubtotal = calculateTotal(cartItems);
     addClickEvents(cartItems);
@@ -67,11 +67,13 @@ async function removeItem(e) {
   cart.splice(itemIndex, 1);
   setLocalStorage("so-cart", cart);
   //reload page beacuse shopping cart is duplicating items
-  location.reload();
-  //shoppingCart();
+  // location.reload();
+  shoppingCart();
+  getCartCount();
 }
 async function emptyCart() {
   RemoveLocalStorage("so-cart");
-  //shoppingCart();
-  location.reload();
+  shoppingCart();
+  // location.reload();
+  getCartCount();
 }

@@ -29,7 +29,7 @@ export function setClick(selector, callback) {
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get('product');
+  const product = urlParams.get("product");
   return product;
 }
 
@@ -51,9 +51,9 @@ export function renderListWithTemplate(templateFn,
   clear = true) {
     const products = list.map(items => templateFn(items));
     if(clear){
-      parentElement.innerHtml = "";
+      parentElement.textContent = "";
     }
-    parentElement.insertAdjacentHTML(position, products.join(''));
+    parentElement.insertAdjacentHTML(position, products.join(""));
 }
 
 export async function renderWithTemplate(templateFn, parentElement, callback, 
@@ -62,7 +62,7 @@ export async function renderWithTemplate(templateFn, parentElement, callback,
     clear = true) {
     
     if (clear) {
-      parentElement.innerHTML = "";
+      parentElement.textContent = "";
     } 
     const template =  await templateFn(data);
     parentElement.insertAdjacentHTML(position, template);
