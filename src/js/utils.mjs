@@ -9,6 +9,10 @@ export function qs(selector, parent = document) {
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+// clears all data from local storage for a specific key
+export function RemoveLocalStorage(key) {
+  return localStorage.removeItem(key);
+}
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
@@ -32,7 +36,9 @@ export function getParam(param) {
 export function getCartCount(){
   const cartItems = getLocalStorage("so-cart");
   let count = 0;
-  cartItems.forEach((item) => count += item.Quantity);
+  if(cartItems){
+    cartItems.forEach((item) => count += item.Quantity);
+  }
   //Display # of items in the cart
   document.getElementById("cart_count").innerHTML = count;
 
