@@ -201,7 +201,7 @@ button {
   grid-column: 2;
 }
 
-.cart-card__total-price{
+.cart-card__total-price {
   grid-row: 2;
   grid-column: 4;
 }
@@ -221,7 +221,6 @@ button {
   display: flex;
   cursor: pointer;
   justify-content: right;
-  
 }
 
 .cart-card__quantity-control {
