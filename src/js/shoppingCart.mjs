@@ -3,19 +3,15 @@ import { getLocalStorage, setLocalStorage, RemoveLocalStorage, loadHeaderFooter,
 
 export default async function shoppingCart() {
   const cartItems = getLocalStorage("so-cart") ?? [];
-  let cartSubtotal = 0;
   const element = qs(".product-list");
 
   if (cartItems.length > 0) {
     renderListWithTemplate(cartItemTemplate, element, cartItems);
-    cartSubtotal = calculateTotal(cartItems);
+    updateCartDisplay(cartItems); // Update the cart display
     addClickEvents(cartItems);
-    const cartTotal = cartSubtotal;
-    document.getElementById("cart-total").innerHTML = `Total: $${cartTotal}`;
     document
-    .getElementById("remove_all_items")
-    .addEventListener("click", emptyCart);
-
+      .getElementById("remove_all_items")
+      .addEventListener("click", emptyCart);
   } else {
     document.querySelector(".product-list").innerHTML =
       "<p>Your cart is empty!</p>";
@@ -23,7 +19,8 @@ export default async function shoppingCart() {
   }
 }
 
-function cartItemTemplate(item) {
+export function cartItemTemplate(item) {
+  const itemTotalPrice = (item.Quantity * item.FinalPrice).toFixed(2);
   const newItem = `<li class="cart-card divider">
   <a href="../product_pages/?product=${item.Id}" class="cart-card__image">
     <img
@@ -35,8 +32,13 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: ${item.Quantity}</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
+  <div class="cart-card__quantity-control">
+    <button class="quantity-increase" data-id="${item.Id}">+</button>
+    <p class="cart-card__quantity">qty: ${item.Quantity}</p>
+    <button class="quantity-decrease" data-id="${item.Id}">-</button>  
+  </div>
+  <p class="cart-card__price">Unit Price: $${item.FinalPrice.toFixed(2)}</p>
+  <p class="cart-card__total-price">Total Price: $${itemTotalPrice}</p>
   <span class="cart_remove" id="${item.Id}">X</span>
 </li>`;
 
@@ -46,7 +48,7 @@ function cartItemTemplate(item) {
 function calculateTotal(cart) {
   let total = 0;
   cart.forEach((cartItem) => {
-    total += cartItem.FinalPrice;
+    total += cartItem.FinalPrice * cartItem.Quantity;
   });
   document.querySelector(".cart-footer").classList.remove("hide");
   return total;
@@ -55,9 +57,23 @@ function calculateTotal(cart) {
 function addClickEvents(cart) {
   cart.forEach((cartItem) => {
     document
-    .getElementById(cartItem.Id)
-    .addEventListener("click", removeItem);
+      .getElementById(cartItem.Id)
+      .addEventListener("click", removeItem);
+    document
+      .querySelector(`.quantity-decrease[data-id="${cartItem.Id}"]`)
+      .addEventListener("click", decreaseQuantity);
+    document
+      .querySelector(`.quantity-increase[data-id="${cartItem.Id}"]`)
+      .addEventListener("click", increaseQuantity);
   });
+}
+
+function updateCartDisplay(cart) {
+  const element = qs(".product-list");
+  renderListWithTemplate(cartItemTemplate, element, cart); // Re-render the cart items
+  addClickEvents(cart); // Re-attach event listeners after re-rendering
+  const cartSubtotal = calculateTotal(cart).toFixed(2);
+  document.getElementById("cart-total").innerHTML = `Total: $${cartSubtotal}`;
 }
 
 async function removeItem(e) {
@@ -66,14 +82,43 @@ async function removeItem(e) {
   let itemIndex = cart.findIndex((item) => item.Id === product.Id);
   cart.splice(itemIndex, 1);
   setLocalStorage("so-cart", cart);
-  //reload page beacuse shopping cart is duplicating items
-  // location.reload();
   shoppingCart();
   getCartCount();
 }
+
 async function emptyCart() {
   RemoveLocalStorage("so-cart");
   shoppingCart();
-  // location.reload();
   getCartCount();
 }
+
+//increae quanity function
+function increaseQuantity(e) {
+  const productId = e.target.getAttribute("data-id");
+  let cart = getLocalStorage("so-cart") ?? [];
+  let itemIndex = cart.findIndex((item) => item.Id === productId);
+  if (itemIndex !== -1) {
+    cart[itemIndex].Quantity += 1;
+    setLocalStorage("so-cart", cart);
+    updateCartDisplay(cart); // Update the display
+    getCartCount(); // Update the cart count
+  }
+}
+
+
+//decreae quanity function
+function decreaseQuantity(e) {
+  const productId = e.target.getAttribute("data-id");
+  let cart = getLocalStorage("so-cart") ?? [];
+  let itemIndex = cart.findIndex((item) => item.Id === productId);
+  if (itemIndex !== -1 && cart[itemIndex].Quantity > 1) {
+    cart[itemIndex].Quantity -= 1;
+    setLocalStorage("so-cart", cart);
+    updateCartDisplay(cart); // Update the display
+    getCartCount(); // Update the cart count
+  } else if (itemIndex !== -1 && cart[itemIndex].Quantity === 1) {
+    removeItem({target: {id: productId}}); // Remove item if quantity is 1
+  }
+}
+
+
