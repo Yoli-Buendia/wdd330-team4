@@ -20,6 +20,3 @@ export async function findProductById(id) {
   console.log("Product: " + products);
   return data.Result;
 }
-
-
-// http://server-nodejs.cit.byui.edu:3000/product/989CH
