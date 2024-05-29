@@ -292,3 +292,16 @@ footer {
 .hide {
   display: none;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* four columns */
+  grid-template-rows: repeat(1, auto); /* Two rows, each 100px high */
+  gap: 25px; /* Gap between grid items */
+}
+
+figcaption {
+  content: center;
+  font-weight: bold;
+  text-align: center;
+}
