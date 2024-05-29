@@ -3,10 +3,10 @@ import { qs, renderListWithTemplate, filterList } from "./utils.mjs";
 
 export default async function productList(selector, category) {
     const items = await getData(category);
-    const filter = ["880RR", "985RF", "985PR", "344YJ"]
-    const newItems = filterList(items, filter);
+    // const filter = ["880RR", "985RF", "985PR", "344YJ"]
+    // const newItems = filterList(items, filter);
     const element = qs(selector);
-    renderListWithTemplate(productCardTemplate, element, newItems);
+    renderListWithTemplate(productCardTemplate, element, items);
 }
 
 function productCardTemplate(product) {
@@ -16,9 +16,9 @@ function productCardTemplate(product) {
     const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice);
    
     return `<li class="product-card">
-        <a href="product_pages/?product=${product.Id}">
+        <a href="../product_pages/?product=${product.Id}">
             <img
-                src="${product.Image}"
+                src="${product.Images.PrimaryMedium}"
                 alt="${product.NameWithoutBrand}"
             />
             <h3 class="card__brand">${product.Name}</h3>

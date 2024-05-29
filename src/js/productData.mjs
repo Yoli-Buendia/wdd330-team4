@@ -15,7 +15,11 @@ export async function getData(category) {
 }
 
 export async function findProductById(id) {
-  const products = await fetch(baseURL + `product/${id}`
-);
-  return products.find((item) => item.Id === id);
+  const products = await fetch(baseURL + `product/${id}`);
+  const data = await convertToJson(products);
+  console.log("Product: " + products);
+  return data.Result;
 }
+
+
+// http://server-nodejs.cit.byui.edu:3000/product/989CH

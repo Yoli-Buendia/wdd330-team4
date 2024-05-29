@@ -1,9 +1,8 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, getParam, qs } from "./utils.mjs";
 import productList from "./productList.mjs";
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const category = urlParams.get("category");
-
+const category = getParam("category");
+// const title = "Top Products: " + category;
+qs(".category-title").textContent = "Top Products: " + category.charAt(0).toUpperCase() + category.slice(1);
 productList(".product-list", category);
 loadHeaderFooter();
