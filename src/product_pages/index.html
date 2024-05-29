@@ -17,25 +17,33 @@
     <header class="divider" id="main-header"></header>
 
     <main class="divider">
-      <section class="product-detail">
+      <!-- <div class="product-title-large">
         <h3 id="productName"></h3>
-
         <h2 class="divider" id="productNameWithoutBrand"></h2>
+      </div> -->
+      <section class="product-detail">
+        <div class="product-title">
+          <h3 id="productName"></h3>
+          <h2 class="divider" id="productNameWithoutBrand"></h2>
+        </div>
 
-        <img id="productImage" class="divider" src="" alt="" />
+        <div class="product-preview">
+          <picture>
+            <source id="productImageXL" media="" srcset="" />
+            <img id="productImage" class="divider" src="" alt="" />
+          </picture>
+          <!-- <img id="productImage" class="divider" src="" alt="" /> -->
+        </div>
 
-        <p class="product-card__retail_price" id="productRetailPrice"></p>
-
-        <p class="product-card__discount" id="productDiscountAmount"></p>
-
-        <p class="product-card__price" id="productFinalPrice"></p>
-
-        <p class="product__color" id="productColorName"></p>
-
-        <p class="product__description" id="productDescriptionHtmlSimple"></p>
-
-        <div class="product-detail__add">
-          <button id="addToCart" data-id="">Add to Cart</button>
+        <div class="product-description">
+          <p class="product-card__retail_price" id="productRetailPrice"></p>
+          <p class="product-card__discount" id="productDiscountAmount"></p>
+          <p class="product-card__price" id="productFinalPrice"></p>
+          <p class="product__color" id="productColorName"></p>
+          <p class="product__description" id="productDescriptionHtmlSimple"></p>
+          <div class="product-detail__add">
+            <button id="addToCart" data-id="">Add to Cart</button>
+          </div>
         </div>
       </section>
     </main>
