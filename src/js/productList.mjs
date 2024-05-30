@@ -19,7 +19,6 @@ export default async function productList(selector, category) {
 }
 
 function sortProductItemsByPrice() {
-    const element = qs(".product-list");
     items.sort((a, b) => { return +a.FinalPrice - +b.FinalPrice; });
     if (priceReverse) {
         items.reverse();
@@ -32,7 +31,6 @@ function sortProductItemsByPrice() {
 }
 
 function sortProductItemsByName(reverse=false) {
-    const element = qs(".product-list");
     items.sort((a, b) => a.NameWithoutBrand.localeCompare(b.NameWithoutBrand));
     if (nameReverse) {
         items.reverse();
