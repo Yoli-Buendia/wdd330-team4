@@ -36,10 +36,13 @@ async function addToCartHandler(e) {
 }
 
 function renderProductDetails(product) {
+
   document.getElementById("productName").innerText = product.Name;
   document.getElementById("productNameWithoutBrand").innerText = product.NameWithoutBrand;
   document.getElementById("productImage").setAttribute("src", product.Images.PrimaryLarge);
   document.getElementById("productImage").setAttribute("alt", product.NameWithoutBrand);
+  qs("#productImageXL").setAttribute("media", "(min-width: 500px)"); 
+  qs("#productImageXL").setAttribute("srcset", product.Images.PrimaryExtraLarge); 
 
   if (product.FinalPrice < product.SuggestedRetailPrice) {
     //Consider putting this in Utility
