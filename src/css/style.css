@@ -173,6 +173,9 @@ button {
 .product-card__retail_price {
   font-size: 12px;
 }
+.product-sort {
+  cursor: pointer;
+}
 
 /* Start cart list card styles */
 .cart-card {
