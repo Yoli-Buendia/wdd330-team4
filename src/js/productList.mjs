@@ -20,23 +20,29 @@ export default async function productList(selector, category) {
 
 function sortProductItemsByPrice() {
     items.sort((a, b) => { return +a.FinalPrice - +b.FinalPrice; });
+    const icon = qs("#sort_price_icon")
     if (priceReverse) {
         items.reverse();
         priceReverse = false;
+        icon.textContent = "↓";
     }
     else{
         priceReverse = true;
+        icon.textContent = "↑";
     }
     renderListWithTemplate(productCardTemplate, productListElement, items);
 }
 
-function sortProductItemsByName(reverse=false) {
+function sortProductItemsByName() {
     items.sort((a, b) => a.NameWithoutBrand.localeCompare(b.NameWithoutBrand));
+    const icon = qs("#sort_name_icon")
     if (nameReverse) {
         items.reverse();
         nameReverse = false;
+        icon.textContent = "↓";
     } else {
         nameReverse = true;
+        icon.textContent = "↑";
     }
     renderListWithTemplate(productCardTemplate, productListElement, items);
 }
