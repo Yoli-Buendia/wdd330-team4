@@ -8,7 +8,7 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <script src="../js/checkout.js" type="module"></script>
   </head>
 
@@ -18,6 +18,39 @@
     <main class="divider">
       <section class="products">
         <h2>Review & Place your Order</h2>
+        <form>
+          <fieldset>
+            <legend>Shipping</legend>
+            <input type="text" required name="fname" placeholder="First Name" value=""/>
+            <input type="text" required name="lname" placeholder="Last Name" value=""/>
+            <input type="text" required name="street" placeholder="Street" value=""/>
+            <input type="text" required name="city" placeholder="City" value=""/>
+            <input type="text" required name="state" placeholder="State" value=""/>
+            <input type="text" required name="zip" placeholder="Zip Code" value=""/>
+          </fieldset>
+
+          <fieldset>
+            <legend>Payment</legend>
+            <input type="text" required name="cardNumber" placeholder="Card Number" value=""/>
+            <input type="text" required name="expiration" placeholder="Expiration" value=""/>
+            <input type="text" required name="code" placeholder="Security Code" value=""/>
+          </fieldset>
+
+          <fieldset>
+            <legend>Order Summary</legend>
+            <div id="subtotal-label">Item Subtotal</div>
+            <div id="subtotal"></div>
+            <div>Shipping Estimate</div>
+            <div id="shipping-estimate"></div>
+            <div>Tax</div>
+            <div id="tax"></div>
+            <div>Order Total</div>
+            <div id="order-total"></div>
+          </fieldset>
+
+          <button>Checkout</button>
+
+        </form>
       </section>
     </main>
 
