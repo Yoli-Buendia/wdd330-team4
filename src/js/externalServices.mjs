@@ -32,7 +32,6 @@ export async function checkout(payload) {
 
   const response = await fetch(url, options);
   const data = await convertToJson(response);
-  console.log("Data: " + data.Result);
-  return data.Result;
-
+  console.log("Data: " + data);
+  return data;
 }

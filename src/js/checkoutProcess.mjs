@@ -47,23 +47,24 @@ import { checkout } from "../js/externalServices.mjs"
   async checkout(form) {
     let order = {
       orderDate: new Date(),
-      fname: form.elements.fname,
-      lname: form.elements.lname,
-      street: form.elements.steet,
-      city: form.elements.city,
-      state: form.elements.state,
-      zip: form.elements.zip,
-      cardNumber: form.elements.cardNumber,
-      expiration: form.elements.expiration,
-      code: form.elements.code,
+      fname: form.elements.fname.value,
+      lname: form.elements.lname.value,
+      street: form.elements.street.value,
+      city: form.elements.city.value,
+      state: form.elements.state.value,
+      zip: form.elements.zip.value,
+      cardNumber: form.elements.cardNumber.value,
+      expiration: form.elements.expiration.value,
+      code: form.elements.code.value,
       items: packageItems(this.list),
       orderTotal: this.orderTotal,
       shipping: this.shipping,
       tax: this.tax
     }
 
-
-    await checkout(order);
+    const res = await checkout(order);
+    //TODO Check the result of checkout and redirect to a order comfirmation page?
+    //res contains a message and an orderId. 
   }
   
 };
