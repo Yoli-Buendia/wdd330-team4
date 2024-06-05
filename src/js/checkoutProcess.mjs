@@ -1,4 +1,5 @@
 import { qs, getLocalStorage } from "../js/utils.mjs"
+import { checkout } from "../js/externalServices.mjs"
 
  const checkoutProcess = {
 
@@ -41,10 +42,44 @@ import { qs, getLocalStorage } from "../js/utils.mjs"
   },
 
   calculateItemSummary: function() {
-  }
+  },
 
+  async checkout(form) {
+    let order = {
+      orderDate: new Date(),
+      fname: form.elements.fname,
+      lname: form.elements.lname,
+      street: form.elements.steet,
+      city: form.elements.city,
+      state: form.elements.state,
+      zip: form.elements.zip,
+      cardNumber: form.elements.cardNumber,
+      expiration: form.elements.expiration,
+      code: form.elements.code,
+      items: packageItems(this.list),
+      orderTotal: this.orderTotal,
+      shipping: this.shipping,
+      tax: this.tax
+    }
+
+
+    await checkout(order);
+  }
   
 };
+
+function packageItems(items) {
+  let cart = items.map((item) =>{  
+  const simpleItem = {
+    id: item.Id,
+    name: item.Name,
+    price: item.FinalPrice,
+    quantity: item.Quantity
+}
+return simpleItem;
+});
+return cart;  
+}
 
 
 
