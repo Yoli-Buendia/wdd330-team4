@@ -1,5 +1,5 @@
-import { findProductById } from "./productData.mjs";
-import { getLocalStorage, setLocalStorage, RemoveLocalStorage, loadHeaderFooter, qs, renderListWithTemplate, getCartCount } from "./utils.mjs";
+import { findProductById } from "./externalServices.mjs";
+import { getLocalStorage, setLocalStorage, RemoveLocalStorage, qs, renderListWithTemplate, getCartCount } from "./utils.mjs";
 
 export default async function shoppingCart() {
   const cartItems = getLocalStorage("so-cart") ?? [];
@@ -24,7 +24,7 @@ export function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="../product_pages/?product=${item.Id}" class="cart-card__image">
     <img
-      src="${item.Images.PrimarySmall}"
+      src="${item.Image}"
       alt="${item.Name}"
     />
   </a>

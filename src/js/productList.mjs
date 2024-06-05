@@ -1,5 +1,5 @@
-import { getData } from "./productData.mjs";
-import { qs, renderListWithTemplate, filterList } from "./utils.mjs";
+import { getData } from "./externalServices.mjs";
+import { qs, renderListWithTemplate } from "./utils.mjs";
 
 let items = {};
 let priceReverse = false;
@@ -19,7 +19,7 @@ export default async function productList(selector, category) {
 }
 
 function sortProductItemsByPrice() {
-    items.sort((a, b) => { return +a.FinalPrice - +b.FinalPrice; });
+    items.sort((a, b) => +a.FinalPrice - +b.FinalPrice);
     const icon = qs("#sort_price_icon")
     if (priceReverse) {
         items.reverse();
@@ -50,7 +50,7 @@ function sortProductItemsByName() {
 function productCardTemplate(product) {
 
     //To display discount amount
-    const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', });
+    const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", });
     const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice);
 
     return `<li class="product-card">
