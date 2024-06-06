@@ -77,7 +77,7 @@ export function filterList(list, filter){
   return newList;
 }
 
-function loadTemplate (path){
+export function loadTemplate (path){
   return async function (){
     const response = await fetch(path);
     if (response.ok){

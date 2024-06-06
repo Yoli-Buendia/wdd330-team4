@@ -1,13 +1,14 @@
 import { getData } from "./productData.mjs";
-import { qs, renderListWithTemplate, filterList } from "./utils.mjs";
+import { qs, renderListWithTemplate, renderWithTemplate, filterList, loadTemplate } from "./utils.mjs";
+import productDetails from "./productDetails.mjs";
 
 let items = {};
 let priceReverse = false;
 let nameReverse = false;
 let productListElement;
 
-export default async function productList(selector, category) {
-    items = await getData(category);
+export default async function productList(selector, category, customItems = null) {
+    items = customItems ?? await getData(category);
     productListElement = qs(selector);
     document
         .getElementById("sort_by_price")
@@ -16,6 +17,40 @@ export default async function productList(selector, category) {
         .getElementById("sort_by_name")
         .addEventListener("click", sortProductItemsByName);
     renderListWithTemplate(productCardTemplate, productListElement, items);
+
+    modalSetup();
+}
+
+function modalSetup() {
+    // let modal = qs("#quick-view");
+    let modal = qs(".modal-bg");
+    let close = qs(".close");
+    let addToCart = qs("#addToCart");
+
+    let quickViewBtns = document.querySelectorAll(".quick-view-btn");
+
+    quickViewBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        renderQuickView(btn.dataset.id);
+        showModal();
+      })
+    });
+
+    // addToCart.addEventListener("click", () => {
+    //   hideModal();
+    // })
+
+    close.onclick = () => hideModal();
+
+    // window.onclick = () => hideModal();
+
+
+    function showModal() {
+      modal.style.display = "flex";
+    }
+    function hideModal() {
+      modal.style.display = "none";
+    }
 }
 
 function sortProductItemsByPrice() {
@@ -30,7 +65,10 @@ function sortProductItemsByPrice() {
         priceReverse = true;
         icon.textContent = "↑";
     }
+
     renderListWithTemplate(productCardTemplate, productListElement, items);
+    modalSetup();
+
 }
 
 function sortProductItemsByName() {
@@ -44,7 +82,8 @@ function sortProductItemsByName() {
         nameReverse = true;
         icon.textContent = "↑";
     }
-    renderListWithTemplate(productCardTemplate, productListElement, items);
+    renderListWithTemplate(productCardTemplate, productListElement, items)
+    modalSetup();
 }
 
 function productCardTemplate(product) {
@@ -71,5 +110,14 @@ function productCardTemplate(product) {
             ${currency.format(product.FinalPrice)}
             </p>
             </a>
+            <button class="quick-view-btn" data-id="${product.Id}">Quick View</button>
     </li>`
+}
+
+export function renderQuickView(productId) {
+  const modalTemplate = loadTemplate("/partials/productDetail.html");
+ 
+  const modal = qs(".product-detail");
+  
+   renderWithTemplate(modalTemplate, modal, productDetails, productId);
 }
