@@ -1,4 +1,4 @@
-import { getData } from "./productData.mjs";
+import { getProductsByCategory } from "./externalServices.mjs";
 import { qs, renderListWithTemplate, renderWithTemplate, loadTemplate } from "./utils.mjs";
 import productDetails from "./productDetails.mjs";
 
@@ -8,7 +8,7 @@ let nameReverse = false;
 let productListElement;
 
 export default async function productList(selector, category, customItems = null) {
-    items = customItems ?? await getData(category);
+    items = customItems ?? await getProductsByCategory(category);
     productListElement = qs(selector);
     document
         .getElementById("sort_by_price")

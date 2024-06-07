@@ -1,5 +1,5 @@
-import { findProductById } from "./productData.mjs";
-import { getLocalStorage, setLocalStorage, RemoveLocalStorage, loadHeaderFooter, qs, renderListWithTemplate, getCartCount } from "./utils.mjs";
+import { findProductById } from "./externalServices.mjs";
+import { getLocalStorage, setLocalStorage, RemoveLocalStorage, qs, renderListWithTemplate, getCartCount } from "./utils.mjs";
 
 export default async function shoppingCart() {
   const cartItems = getLocalStorage("so-cart") ?? [];
@@ -24,7 +24,7 @@ export function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="../product_pages/?product=${item.Id}" class="cart-card__image">
     <img
-      src="${item.Images.PrimarySmall}"
+      src="${item.Image}"
       alt="${item.Name}"
     />
   </a>
@@ -45,12 +45,11 @@ export function cartItemTemplate(item) {
   return newItem;
 }
 
-function calculateTotal(cart) {
+export function calculateTotal(cart) {
   let total = 0;
   cart.forEach((cartItem) => {
     total += cartItem.FinalPrice * cartItem.Quantity;
   });
-  document.querySelector(".cart-footer").classList.remove("hide");
   return total;
 }
 
@@ -73,6 +72,7 @@ function updateCartDisplay(cart) {
   renderListWithTemplate(cartItemTemplate, element, cart); // Re-render the cart items
   addClickEvents(cart); // Re-attach event listeners after re-rendering
   const cartSubtotal = calculateTotal(cart).toFixed(2);
+  document.querySelector(".cart-footer").classList.remove("hide");
   document.getElementById("cart-total").innerHTML = `Total: $${cartSubtotal}`;
 }
 
