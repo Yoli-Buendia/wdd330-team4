@@ -1,5 +1,5 @@
 import { getData } from "./productData.mjs";
-import { qs, renderListWithTemplate, renderWithTemplate, filterList, loadTemplate } from "./utils.mjs";
+import { qs, renderListWithTemplate, renderWithTemplate, loadTemplate } from "./utils.mjs";
 import productDetails from "./productDetails.mjs";
 
 let items = {};
@@ -24,7 +24,6 @@ export default async function productList(selector, category, customItems = null
 function modalSetup() {
     let modal = qs(".modal-bg");
     let close = qs(".close");
-    let addToCart = qs("#addToCart");
 
     let quickViewBtns = document.querySelectorAll(".quick-view-btn");
 
@@ -49,7 +48,7 @@ function modalSetup() {
 }
 
 function sortProductItemsByPrice() {
-    items.sort((a, b) => { return +a.FinalPrice - +b.FinalPrice; });
+    items.sort((a, b) => +a.FinalPrice - +b.FinalPrice);
     const icon = qs("#sort_price_icon")
     if (priceReverse) {
         items.reverse();
@@ -84,7 +83,7 @@ function sortProductItemsByName() {
 function productCardTemplate(product) {
 
     //To display discount amount
-    const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', });
+    const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", });
     const discountAmount = Math.round(product.SuggestedRetailPrice - product.FinalPrice);
 
     return `<li class="product-card">
