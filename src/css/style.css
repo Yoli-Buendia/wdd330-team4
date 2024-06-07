@@ -154,6 +154,10 @@ button:active {
   margin: 0.5em 0;
 }
 
+.product-card:hover > .quick-view-btn {
+  visibility: visible;
+}
+
 .card__brand {
   font-size: var(--small-font);
 }
@@ -286,6 +290,7 @@ button:active {
 
 .modal {
   display: block;
+  z-index: -1;
   max-width: 864px;
   width: 80%;
   max-height: 80%;
@@ -306,6 +311,14 @@ button:active {
 .close:hover {
   cursor: pointer;
 }
+
+.quick-view-btn {
+  visibility: hidden;
+}
+
+/* .quick-view-btn:hover {
+  display: block;
+} */
 
 @keyframes wobble {
   50% {

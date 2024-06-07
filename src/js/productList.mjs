@@ -22,7 +22,6 @@ export default async function productList(selector, category, customItems = null
 }
 
 function modalSetup() {
-    // let modal = qs("#quick-view");
     let modal = qs(".modal-bg");
     let close = qs(".close");
     let addToCart = qs("#addToCart");
@@ -36,12 +35,8 @@ function modalSetup() {
       })
     });
 
-    // addToCart.addEventListener("click", () => {
-    //   hideModal();
-    // })
-
     close.onclick = () => hideModal();
-
+    // modal.onclick = () => hideModal();
     // window.onclick = () => hideModal();
 
 
