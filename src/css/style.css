@@ -30,6 +30,17 @@ header {
   justify-content: space-between;
   padding: 0 10px;
 }
+input {
+  font-size: var(--font-base);
+}
+.formDisplay {
+  float: right;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
 .logo {
   line-height: 60px;
   width: 245px;
