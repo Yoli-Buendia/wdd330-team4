@@ -7,8 +7,8 @@ let priceReverse = false;
 let nameReverse = false;
 let productListElement;
 
-export default async function productList(selector, category, customItems = null) {
-    items = customItems ?? await getProductsByCategory(category);
+export default async function productList(selector, category) {
+    items = await getProductsByCategory(category);
     productListElement = qs(selector);
     document
         .getElementById("sort_by_price")
@@ -35,9 +35,6 @@ function modalSetup() {
     });
 
     close.onclick = () => hideModal();
-    // modal.onclick = () => hideModal();
-    // window.onclick = () => hideModal();
-
 
     function showModal() {
       modal.style.display = "flex";
