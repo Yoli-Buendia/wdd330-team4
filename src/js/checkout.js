@@ -1,5 +1,5 @@
-import { loadHeaderFooter } from "./utils.mjs"
-import checkoutProcess from "./checkoutProcess.mjs"
+import { loadHeaderFooter } from "./utils.mjs";
+import checkoutProcess from "./checkoutProcess.mjs";
 
 loadHeaderFooter();
 
@@ -11,7 +11,6 @@ document
     "blur",
     checkoutProcess.calculateOrdertotal.bind(checkoutProcess)
   );
-
 
 document.forms["checkout"].addEventListener("submit", (event) => {
   event.preventDefault();

@@ -1,5 +1,6 @@
-import { qs, getLocalStorage } from "../js/utils.mjs"
-import { checkout } from "../js/externalServices.mjs"
+import { qs, getLocalStorage, formatCurrency } from "./utils.mjs"
+import { checkout } from "./externalServices.mjs"
+import { calculateTotal } from "./shoppingCart.mjs"
 
  const checkoutProcess = {
 
@@ -10,20 +11,24 @@ import { checkout } from "../js/externalServices.mjs"
   shipping: 0,
   tax: 0,
   orderTotal: 0,
+  itemCount: 0,
 
-  init(storageKey, selector) {
+  init: function(storageKey, selector) {
     this.storageKey = storageKey;
     this.selector = selector;
     this.list = getLocalStorage(storageKey);
     this.calculateItemSummary();
   },
 
-  displayOrderTotals: () => {
-    // once the totals are all calculated display them in the order summary page
-    const total = qs("#order-total");
-    total.textContent = this.orderTotal;
+  calculateItemSummary: function() {
+    // calculate and display the total amount of the items in the cart, and the number of items.
+
+    this.itemTotal = calculateTotal(this.list);
+
+    this.calculateOrdertotal();
+
   },
-  
+
   calculateOrdertotal: function() {
     this.shipping = 10;
     let count = 0;
@@ -33,16 +38,35 @@ import { checkout } from "../js/externalServices.mjs"
     if(count > 1) {
       this.shipping += (count - 1) * 2;
     }
+
+    this.itemCount = count;
     
-    this.tax = this.itemTotal * 1.06;
+    this.tax = this.itemTotal * 0.06;
 
     this.orderTotal = this.itemTotal + this.tax + this.shipping;
     
     this.displayOrderTotals();
   },
 
-  calculateItemSummary: function() {
+  displayOrderTotals: function() {
+    // once the totals are all calculated display them in the order summary page
+    
+    
+    qs("#subtotal-label").textContent = this.itemCount;
+
+    qs("#subtotal").textContent = formatCurrency(this.itemTotal);
+
+    qs("#shipping-estimate").textContent = formatCurrency(this.shipping);
+
+    qs("#tax").textContent = formatCurrency(this.tax);
+
+    qs("#order-total").textContent = formatCurrency(this.orderTotal);
+
   },
+  
+  
+
+  
 
   async checkout(form) {
     let order = {

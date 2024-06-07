@@ -9,13 +9,13 @@ function convertToJson(res) {
 }
 
 export async function getProductsByCategory(category) {
-  const response = await fetch(baseURL + `products/search/${category}`);
+  const response = await fetch(baseURL + `/products/search/${category}`);
   const data = await convertToJson(response);
   return data.Result;
 }
 
 export async function findProductById(id) {
-  const products = await fetch(baseURL + `product/${id}`);
+  const products = await fetch(baseURL + `/product/${id}`);
   const data = await convertToJson(products);
   return data.Result;
 }
@@ -32,6 +32,6 @@ export async function checkout(payload) {
 
   const response = await fetch(url, options);
   const data = await convertToJson(response);
-  console.log("Data: " + data);
+  console.log("Data: " + response);
   return data;
 }
