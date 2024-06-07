@@ -1,6 +1,5 @@
 import { loadHeaderFooter, getParam, qs } from "./utils.mjs";
 import productList from "./productList.mjs";
-import { renderQuickView } from "./productList.mjs";
 
 loadHeaderFooter();
 const category = getParam("category");
