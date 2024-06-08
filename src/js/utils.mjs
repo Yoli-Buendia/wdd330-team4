@@ -48,7 +48,8 @@ export function renderListWithTemplate(templateFn,
   list,
   position = "afterbegin",
   clear = true) {
-    const products = list.map(items => templateFn(items));
+  
+     const products = list.map(items => templateFn(items));
     if(clear){
       parentElement.textContent = "";
     }

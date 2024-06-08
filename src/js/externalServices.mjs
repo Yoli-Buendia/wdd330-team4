@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-console */
 const baseURL = import.meta.env.VITE_SERVER_URL
 
 function convertToJson(res) {
@@ -8,6 +10,7 @@ function convertToJson(res) {
   }
 }
 
+// Function to fetch products for a specific category
 export async function getProductsByCategory(category) {
   const response = await fetch(baseURL + `products/search/${category}`);
   const data = await convertToJson(response);
@@ -23,9 +26,9 @@ export async function findProductById(id) {
 export async function checkout(payload) {
   const url = baseURL + `checkout`;
   const options = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(payload)
   }
