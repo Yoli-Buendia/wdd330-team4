@@ -4,6 +4,11 @@ import { qs, renderListWithTemplate, renderWithTemplate, loadTemplate } from "./
 import productDetails from "./productDetails.mjs";
 
 
+let priceReverse = false;
+let nameReverse = false;
+
+let items = [];
+
 export async function productList(selector, query = null, category) {
  
     const productListElement = qs(selector);
@@ -11,10 +16,6 @@ export async function productList(selector, query = null, category) {
     const sortNameButton = qs("#sort_by_name");
     const sortPriceIcon = qs("#sort_price_icon");
     const sortNameIcon = qs("#sort_name_icon");
-    
-
-    let items = [];
-
    
     try {
         // Check if a search query is provided
@@ -25,8 +26,6 @@ export async function productList(selector, query = null, category) {
             // Fetch all products for the specified categories
             items = await getAllProducts(productListElement,category);
         }
-
-   
 
         // Render the list of products
         renderProductList(productListElement, items);
@@ -49,35 +48,34 @@ export async function productList(selector, query = null, category) {
 async function getFilteredProducts(query) {
     let filteredProducts = [];
     let categories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
-    console.log("Search query:", query);
+    // console.log("Search query:", query);
 
     // Iterate over the categories to fetch products for each category
     for (const category of categories) {
         const categoryProducts = await getProductsByCategory(category);
-        console.log(`Products in category "${category}":`, categoryProducts);
+        // console.log(`Products in category "${category}":`, categoryProducts);
 
         // Filter products based on the search query
         const matchingProducts = categoryProducts.filter(product => {
             const Name = product.Name || "";
             const isMatch = Name.toLowerCase().includes(query.toLowerCase());
-            console.log(`Checking product: ${Name}, is match: ${isMatch}`);
+            // console.log(`Checking product: ${Name}, is match: ${isMatch}`);
             return isMatch;
         });
 
-        console.log(`Matching products in category "${category}":`, matchingProducts);
+        // console.log(`Matching products in category "${category}":`, matchingProducts);
 
         // Add matching products to the filteredProducts array
         filteredProducts.push(...matchingProducts);
     }
 
-    console.log("Filtered products:", filteredProducts);
+    // console.log("Filtered products:", filteredProducts);
     return filteredProducts;
 }
 
 async function getAllProducts(productListElement, category) {
    const categoryProducts = await getProductsByCategory(category);
    return categoryProducts;
-   
   
 }
 
@@ -91,12 +89,35 @@ function renderProductList(element, products) {
 
 function sortProductItemsByPrice(items, container) {
     items.sort((a, b) => +a.FinalPrice - +b.FinalPrice);
+    const icon = qs("#sort_price_icon");
+    qs("#sort_name_icon").textContent = "";
+    if (priceReverse) {
+        items.reverse();
+        priceReverse = false;
+        icon.textContent = "↓";
+    }
+    else{
+        priceReverse = true;
+        icon.textContent = "↑";
+    }
     renderListWithTemplate(productCardTemplate, container, items);
+    modalSetup();
 }
 
 function sortProductItemsByName(items, container) {
     items.sort((a, b) => a.Name.localeCompare(b.Name));
+    const icon = qs("#sort_name_icon");
+    qs("#sort_price_icon").textContent = "";
+    if (nameReverse) {
+        items.reverse();
+        nameReverse = false;
+        icon.textContent = "↓";
+    } else {
+        nameReverse = true;
+        icon.textContent = "↑";
+    }
     renderListWithTemplate(productCardTemplate, container, items);
+    modalSetup();
 }
 
 
@@ -122,39 +143,6 @@ function modalSetup() {
       modal.style.display = "none";
     }
 }
-
-// function sortProductItemsByPrice() {
-//     items.sort((a, b) => +a.FinalPrice - +b.FinalPrice);
-//     const icon = qs("#sort_price_icon")
-//     if (priceReverse) {
-//         items.reverse();
-//         priceReverse = false;
-//         icon.textContent = "↓";
-//     }
-//     else{
-//         priceReverse = true;
-//         icon.textContent = "↑";
-//     }
-
-//     renderListWithTemplate(productCardTemplate, productListElement, items);
-//     modalSetup();
-
-// }
-
-// function sortProductItemsByName() {
-//     items.sort((a, b) => a.NameWithoutBrand.localeCompare(b.NameWithoutBrand));
-//     const icon = qs("#sort_name_icon")
-//     if (nameReverse) {
-//         items.reverse();
-//         nameReverse = false;
-//         icon.textContent = "↓";
-//     } else {
-//         nameReverse = true;
-//         icon.textContent = "↑";
-//     }
-//     renderListWithTemplate(productCardTemplate, productListElement, items)
-//     modalSetup();
-// }
 
 function productCardTemplate(product) {
 
