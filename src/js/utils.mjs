@@ -105,7 +105,26 @@ export function loadTemplate (path){
   const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", });
 
   return currency.format(price);
-
  }
+ 
+ export function alertMessage(messages, scroll=true){
+  const parentElement = qs("header");
+  renderListWithTemplate(alertMessageTemplate, parentElement, messages, "afterend", false);
+  if (scroll){
+    window.scrollTo(0,0);
+  }
+
+  let closeBtns = document.querySelectorAll(".message-close");
 
 
+  closeBtns.forEach((close) => {
+    close.addEventListener("click", () => {
+      close.parentElement.remove();
+  })
+ })
+}
+
+ function alertMessageTemplate(err){
+  return `<li class="error-message">${err}
+          <span class="message-close">X</span></li>`;
+ }

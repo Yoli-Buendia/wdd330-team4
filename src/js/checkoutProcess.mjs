@@ -1,4 +1,4 @@
-import { qs, getLocalStorage, formatCurrency } from "./utils.mjs"
+import { qs, getLocalStorage, formatCurrency, setLocalStorage, alertMessage} from "./utils.mjs"
 import { checkout } from "./externalServices.mjs"
 import { calculateTotal } from "./shoppingCart.mjs"
 
@@ -24,8 +24,6 @@ import { calculateTotal } from "./shoppingCart.mjs"
     // calculate and display the total amount of the items in the cart, and the number of items.
 
     this.itemTotal = calculateTotal(this.list);
-
-    this.calculateOrdertotal();
 
   },
 
@@ -63,10 +61,6 @@ import { calculateTotal } from "./shoppingCart.mjs"
     qs("#order-total").textContent = formatCurrency(this.orderTotal);
 
   },
-  
-  
-
-  
 
   async checkout(form) {
     let order = {
@@ -85,8 +79,15 @@ import { calculateTotal } from "./shoppingCart.mjs"
       shipping: this.shipping,
       tax: this.tax
     }
-
-    const res = await checkout(order);
+    try {
+      const res = await checkout(order);
+      window.location.href = "/checkout/success.html";
+      setLocalStorage(this.storageKey, []);
+    }catch(err){
+      console.log(err);
+      const messages = Object.values(err.message);
+      alertMessage(messages);
+    }
     //TODO Check the result of checkout and redirect to a order comfirmation page?
     //res contains a message and an orderId. 
   }
