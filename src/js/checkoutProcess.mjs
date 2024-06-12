@@ -25,8 +25,6 @@ import { calculateTotal } from "./shoppingCart.mjs"
 
     this.itemTotal = calculateTotal(this.list);
 
-    this.calculateOrdertotal();
-
   },
 
   calculateOrdertotal: function() {

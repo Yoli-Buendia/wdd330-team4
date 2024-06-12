@@ -95,6 +95,7 @@ input {
   border: 1px solid black;
   list-style: none;
   background-color: var(--primary-color);
+  padding: 0.5em;
 }
 
 button {
