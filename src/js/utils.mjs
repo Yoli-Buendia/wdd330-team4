@@ -105,7 +105,17 @@ export function loadTemplate (path){
   const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", });
 
   return currency.format(price);
-
+ }
+ 
+ export function alertMessage(messages, scroll=true){
+  const parentElement = qs("header");
+  renderListWithTemplate(alertMessageTemplate, parentElement, messages, "afterend", false);
+  // if (scroll){
+  //   parentElement.scroll();
+  // }
  }
 
-
+ function alertMessageTemplate(err){
+  return `<li class="error-message">${err}
+          <span class="message-close">X</span></li>`
+ }

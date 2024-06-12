@@ -91,6 +91,11 @@ input {
 .highlight {
   color: var(--tertiary-color);
 }
+.error-message {
+  border: 1px solid black;
+  list-style: none;
+  background-color: var(--primary-color);
+}
 
 button {
   padding: 0.5em 2em;
@@ -317,6 +322,9 @@ button:active {
   margin-right: 0.5em;
   font-size: 2em;
   font-weight: bold;
+}
+.message-close {
+  float: right;
 }
 
 .close:hover {
