@@ -32,10 +32,10 @@ export function getParam(param) {
   return urlParams.get(param);
 }
 
-export function getCartCount(){
+export function getCartCount() {
   const cartItems = getLocalStorage("so-cart");
   let count = 0;
-  if(cartItems){
+  if (cartItems) {
     cartItems.forEach((item) => count += item.Quantity);
   }
   //Display # of items in the cart
@@ -47,71 +47,72 @@ export function renderListWithTemplate(templateFn,
   parentElement,
   list,
   position = "afterbegin",
+  clear = true,
+  actionText = "X") {
+
+  const products = list.map(items => templateFn(items, actionText));
+  if (clear) {
+    parentElement.textContent = "";
+  }
+  parentElement.insertAdjacentHTML(position, products.join(""));
+}
+
+export async function renderWithTemplate(templateFn, parentElement, callback,
+  data,
+  position = "afterbegin",
   clear = true) {
-  
-     const products = list.map(items => templateFn(items));
-    if(clear){
-      parentElement.textContent = "";
-    }
-    parentElement.insertAdjacentHTML(position, products.join(""));
-}
 
-export async function renderWithTemplate(templateFn, parentElement, callback, 
-    data,
-    position = "afterbegin",
-    clear = true) {
-    
-    if (clear) {
-      parentElement.textContent = "";
-    } 
-    const template =  await templateFn(data);
-    parentElement.insertAdjacentHTML(position, template);
+  if (clear) {
+    parentElement.textContent = "";
+  }
+  const template = await templateFn(data);
+  parentElement.insertAdjacentHTML(position, template);
 
-    if(callback){
-      callback(data);
-    }
+  if (callback) {
+    callback(data);
+  }
 
 }
 
-export function filterList(list, filter){
+export function filterList(list, filter) {
   const newList = list.filter((listItem) => filter.includes(listItem.Id));
   return newList;
 }
 
-export function loadTemplate (path){
-  return async function (){
+export function loadTemplate(path) {
+  return async function () {
     const response = await fetch(path);
-    if (response.ok){
+    if (response.ok) {
       const html = await response.text();
       return html;
-      }
-        
-   };
+    }
+
+  };
 }
 
- export  function loadHeaderFooter(){
+export function loadHeaderFooter() {
   const headerTemplateFn = loadTemplate("/partials/header.html");
   const footerTemplateFn = loadTemplate("/partials/footer.html");
- 
+
   const header = qs("#main-header");
   const footer = qs("#main-footer");
-  
-   renderWithTemplate(headerTemplateFn, header, getCartCount);
-   renderWithTemplate(footerTemplateFn, footer);
-   
- }
 
- export function formatCurrency(price) {
+  renderWithTemplate(headerTemplateFn, header, getCartCount);
+  renderWithTemplate(footerTemplateFn, footer);
+
+}
+
+export function formatCurrency(price) {
   const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", });
 
   return currency.format(price);
- }
- 
- export function alertMessage(messages, scroll=true){
+}
+
+export function alertMessage(messages, scroll = true, actionText = "X") {
   const parentElement = qs("header");
-  renderListWithTemplate(alertMessageTemplate, parentElement, messages, "afterend", false);
-  if (scroll){
-    window.scrollTo(0,0);
+  renderListWithTemplate(alertMessageTemplate, parentElement, messages, "afterend", false, actionText);
+  if (scroll) {
+    window.scrollTo(0, 0);
   }
 
   let closeBtns = document.querySelectorAll(".message-close");
@@ -120,11 +121,11 @@ export function loadTemplate (path){
   closeBtns.forEach((close) => {
     close.addEventListener("click", () => {
       close.parentElement.remove();
+    })
   })
- })
 }
 
- function alertMessageTemplate(err){
-  return `<li class="error-message">${err}
-          <span class="message-close">X</span></li>`;
- }
+function alertMessageTemplate(message, actionText) {
+  return `<li class="error-message">${message}
+          <span class="message-close">${actionText}</span></li>`
+}
