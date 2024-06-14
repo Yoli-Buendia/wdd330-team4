@@ -331,6 +331,7 @@ button:active {
 }
 .message-close {
   float: right;
+  cursor: pointer;
 }
 
 .close:hover {
