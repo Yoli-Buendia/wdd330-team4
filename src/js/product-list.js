@@ -1,8 +1,11 @@
 /* eslint-disable no-console */
 import { loadHeaderFooter, getParam, qs } from "./utils.mjs";
 import { productList } from "./productList.mjs";
+import alert from "./alert.mjs";
 
 loadHeaderFooter();
+
+alert();
 
 document.addEventListener("DOMContentLoaded", async function () {
   const category = getParam("category");

@@ -4,6 +4,7 @@ export function qs(selector, parent = document) {
 }
 // or a more concise version if you are into that sort of thing:
 // export const qs = (selector, parent = document) => parent.querySelector(selector);
+export const qsAll = (selector, parent = document) => parent.querySelectorAll(selector);
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
@@ -107,7 +108,7 @@ export function loadTemplate (path){
   return currency.format(price);
  }
  
- export function alertMessage(messages, scroll=true){
+ export function alertMessage(messages, scroll = true){
   const parentElement = qs("header");
   renderListWithTemplate(alertMessageTemplate, parentElement, messages, "afterend", false);
   if (scroll){
@@ -127,4 +128,41 @@ export function loadTemplate (path){
  function alertMessageTemplate(err){
   return `<li class="error-message">${err}
           <span class="message-close">X</span></li>`;
+ }
+
+
+ // takes the close button's selector, a callback function for the close action, and optionally, the number of parent elements up to apply the callback function on
+ export function closeX(selector, callback, level = 1) {
+  let closeBtns = document.querySelectorAll(selector);
+  closeBtns.forEach((closeBtn) => {
+      let parent = closeBtn;
+      for (let i = 0; i < level; i++) {
+        parent = parent.parentElement;
+      }
+      closeBtn.addEventListener("click", () => {
+        callback(parent);
+      })
+      // closeX(".close-modal", hideModal, 2);
+  })
+  
+  // let closeBtns = document.querySelectorAll(selector);
+  // // console.log("Close Btns: " + JSON.stringify(closeBtns));
+  // closeBtns.forEach((closeBtn) => {
+  //   let parent = closeBtn;
+  //   for (let i = 0; i < level; i++) {
+  //     parent = parent.parentElement;
+  //   }
+  //   // setClickByElement(closeBtn, callback, parent);
+  //   () => {
+  //     closeBtn.addEventListener("touchend", (event) => {
+  //     event.preventDefault();
+  //     callback(parent);
+  //   });
+  //   closeBtn.addEventListener("click", callback(parent));
+  // };
+  // });
+ }
+
+ export function hideElement(element) {
+    element.style.display = "none";
  }

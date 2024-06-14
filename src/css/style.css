@@ -97,6 +97,9 @@ input {
   background-color: var(--primary-color);
   padding: 0.5em;
 }
+.alert-list-item {
+  padding: 0.5em;
+}
 
 button {
   padding: 0.5em 2em;
@@ -316,13 +319,15 @@ button:active {
   border: 1px solid #777;
   background-color: white;
   box-shadow: 0 10px 40px 20px rgb(0, 0, 0, 0.5);
+  padding: 0.5em;
 }
 
 .close {
   float: right;
-  margin-right: 0.5em;
+  margin-top: -0.25em;
   font-size: 2em;
   font-weight: bold;
+  vertical-align: super;
 }
 .message-close {
   float: right;

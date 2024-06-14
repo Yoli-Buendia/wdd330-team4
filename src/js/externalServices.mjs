@@ -39,3 +39,12 @@ export async function checkout(payload) {
   console.log("Data: " + response);
   return data;
 }
+
+export async function getJson(url) {
+  const data = await fetch(url)
+  .then(convertToJson);
+  // .then((data) => console.log("JSON " + JSON.stringify(data)))
+  // .then((data) => JSON.parse(data));
+  
+  return data;
+}
