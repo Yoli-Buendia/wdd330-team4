@@ -105,7 +105,6 @@ function increaseQuantity(e) {
   }
 }
 
-
 //decreae quanity function
 function decreaseQuantity(e) {
   const productId = e.target.getAttribute("data-id");

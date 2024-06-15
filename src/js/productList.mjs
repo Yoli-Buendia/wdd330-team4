@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { getProductsByCategory } from "./externalServices.mjs";
-import { qs, renderListWithTemplate, renderWithTemplate, loadTemplate } from "./utils.mjs";
+import { qs, renderListWithTemplate, renderWithTemplate, loadTemplate, closeX, setClick } from "./utils.mjs";
 import productDetails from "./productDetails.mjs";
 
 
@@ -130,17 +130,17 @@ function modalSetup() {
     quickViewBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         renderQuickView(btn.dataset.id);
-        showModal();
+        showModal(modal);
       })
     });
 
-    close.onclick = () => hideModal();
+    closeX(".close-modal", hideModal, 2);
 
-    function showModal() {
-      modal.style.display = "flex";
+    function showModal(element) {
+        element.style.display = "flex";
     }
-    function hideModal() {
-      modal.style.display = "none";
+    function hideModal(element) {
+      element.style.display = "none";
     }
 }
 
