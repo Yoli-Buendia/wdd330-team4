@@ -136,19 +136,6 @@ function modalSetup() {
 
     closeX(".close-modal", hideModal, 2);
 
-    // let closeBtns = document.querySelectorAll(".close-modal");
-    // console.log("Close Btns Now: " + JSON.stringify(closeBtns));
-    // closeBtns.forEach((closeBtn) => {
-    //     // closeBtn.onclick = () => hideModal(close.parentElement);
-    //     // setClick(closeBtn, hideModal(close.parentElement));
-    //     closeBtn.addEventListener("click", () => {
-    //         // const closeParent = parentLevelSelector(closeBtn, 2);
-    //         hideModal(closeBtn.parentElement.parentElement);
-    //       })
-
-    //     // closeX(".close-modal", hideModal, 2);
-    // })
-
     function showModal(element) {
         element.style.display = "flex";
     }
@@ -156,16 +143,6 @@ function modalSetup() {
       element.style.display = "none";
     }
 }
-
-// function parentLevelSelector(childSelector, level = 1) {
-//     let sel = qs(childSelector);
-//     for (let i = 0; i < level; i++) {
-//         sel = sel.parentElement;
-//     }
-
-//     return sel;
-
-// }
 
 function productCardTemplate(product) {
 
