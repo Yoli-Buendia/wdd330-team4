@@ -1,4 +1,4 @@
-import { setLocalStorage, getLocalStorage, qs, getCartCount } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, qs, getCartCount, renderListWithTemplate } from "./utils.mjs";
 import { findProductById } from "./externalServices.mjs";
 
 
@@ -8,6 +8,9 @@ export default async function productDetails(productId) {
 
   if (typeof product !== "undefined") {
     renderProductDetails(product);
+    let imageList = product.Images.ExtraImages;
+    imageList.unshift({Src: product.Images.PrimaryExtraLarge, Title: "Main View"});
+    renderImageCarousel(imageList);
   }
   else {
     renderEmptyPage();
@@ -75,4 +78,31 @@ function animateCart() {
   setTimeout(() => {
     cartIcon.classList.remove("animate-cart");
   }, 500);
+}
+
+function renderImageCarousel(images) {
+  let imagePreviewContainer = qs(".image-carousel");
+  renderListWithTemplate(imageCarouselTemplate, imagePreviewContainer, images, "afterbegin", true, "");
+  previewImage();
+}
+
+function imageCarouselTemplate(image, actionText) {
+  return `<li class="image-thumb">
+    <img class="image-thumb-item" src="${image.Src}" alt="${image.Title}" />
+  </li>`
+}
+
+function previewImage() {
+  let imageElements = document.querySelectorAll(".image-thumb img");
+  imageElements.forEach((image) => {
+  image.addEventListener("click", () => {
+    displayImage(image.getAttribute("src"));
+  })
+ });
+}
+
+function displayImage(src) {
+  console.log(src);
+  qs("#productImageXL").setAttribute("srcset", src);
+  qs("#productImage").setAttribute("src", src);
 }

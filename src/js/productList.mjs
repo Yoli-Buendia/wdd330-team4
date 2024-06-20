@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { getProductsByCategory } from "./externalServices.mjs";
-import { qs, renderListWithTemplate, renderWithTemplate, loadTemplate, closeX, setClick } from "./utils.mjs";
+import { qs, renderListWithTemplate, renderWithTemplate, loadTemplate, closeX } from "./utils.mjs";
 import productDetails from "./productDetails.mjs";
 
 
@@ -123,7 +123,7 @@ function sortProductItemsByName(items, container) {
 
 function modalSetup() {
     let modal = qs(".modal-bg");
-    let close = qs(".close");
+    // let close = qs(".close");
 
     let quickViewBtns = document.querySelectorAll(".quick-view-btn");
 
