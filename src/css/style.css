@@ -43,8 +43,8 @@ input {
 }
 .logo {
   line-height: 60px;
-  width: 245px;
-  overflow: hidden;
+  /* width: 245px; */
+  /* overflow: hidden; */
   display: flex;
   font-size: 30px;
   text-align: right;
@@ -53,11 +53,20 @@ input {
 .logo img {
   width: 60px;
   height: 60px;
+  min-width: 60px;
+  min-height: 60px;
+  /* flex-shrink: 0; */
 }
 .logo a {
   text-decoration: none;
   color: var(--font-body);
+  display: flex;
 }
+
+.logo-text {
+  display: none;
+}
+
 .hero {
   position: relative;
 }
@@ -154,7 +163,7 @@ button:active {
 .product-list {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   list-style-type: none;
   padding: 0;
 }
@@ -197,9 +206,9 @@ button:active {
   flex-direction: column;
 }
 
-.product-detail img {
+/* .product-detail img {
   width: 100%;
-}
+} */
 
 .product-card__discount {
   color: red;
@@ -356,6 +365,7 @@ button:active {
   padding: 0.5rem;
   border-radius: 2px;
   margin-right: 5px;
+  width: 100%;
 }
 
 #searchbutton {
@@ -366,7 +376,35 @@ button:active {
 }
 
 .search {
-  display: inline-block;
+  display: flex;
+}
+
+.image-carousel {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  padding: 0;
+  gap: 1em;
+}
+
+.image-thumb {
+  list-style-type: none;
+}
+
+.image-thumb-item {
+  border: solid 1px var(--primary-color);
+  max-width: 100px;
+}
+
+.image-thumb-item:hover {
+  cursor: pointer;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* two columns */
+  grid-template-rows: repeat(2, auto);/* Two rows, each 100px high */
+  gap: 25px; /* Gap between grid items */
 }
 
 @keyframes wobble {
@@ -393,6 +431,7 @@ button:active {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
   }
+  
 }
 
 @media screen and (min-width: 750px) {
@@ -402,9 +441,9 @@ button:active {
     grid-template-rows: 1fr 2fr;
     grid-gap: 0 5%;
   }
-  .product-detail img {
+  /* .product-detail img {
     max-width: 100%;
-  }
+  } */
   .product-title {
     grid-column: 2;
     grid-row: 1;
@@ -417,6 +456,16 @@ button:active {
     grid-column: 2;
     grid-row: 2;
   }
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr); /* four columns */
+    grid-template-rows: repeat(1, auto); /* Two rows, each 100px high */
+  }
+  .logo-text {
+    display: block;
+  }
+  .image-thumb-item {
+    max-width: 100px;
+  }
 }
 
 footer {
@@ -426,13 +475,6 @@ footer {
 
 .hide {
   display: none;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* four columns */
-  grid-template-rows: repeat(1, auto); /* Two rows, each 100px high */
-  gap: 25px; /* Gap between grid items */
 }
 
 figcaption {
