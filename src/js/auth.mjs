@@ -1,5 +1,4 @@
 
-import { format } from "prettier";
 import { loginRequest } from "./externalServices.mjs";
 import { alertMessage, getLocalStorage, setLocalStorage, RemoveLocalStorage } from "./utils.mjs";
 import { jwtDecode } from "jwt-decode";
@@ -26,9 +25,7 @@ export function checkLogin() {
         const location = window.location;
 
         window.location = `/login/index.html?redirect=${location.pathname}`;
-
     }
-
 }
 
 function isTokenValid(token) {
@@ -38,5 +35,4 @@ function isTokenValid(token) {
 
         return (tokenobj.exp * 1000 < (currentDate.getTime())) ? false : true;
     } else return false;
-
 }
