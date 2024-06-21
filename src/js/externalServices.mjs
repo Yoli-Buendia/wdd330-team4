@@ -48,3 +48,32 @@ export async function getJson(url) {
   
   return data;
 }
+
+export async function loginRequest(creds) {
+  const url = baseURL + "login/"
+  const data = await fetch(url, {method: "POST",body: JSON.stringify(creds)})
+  // const data = await fetch(url, {method: "POST",body: JSON.stringify({ email: "user1@email.com" , password: "user1" })})
+  .then(convertToJson);
+
+  return data;
+}
+
+
+
+
+export async function orders(token) {
+  const url = baseURL + `orders`;
+  const options = {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    } ,
+   
+  }
+
+  const response = await fetch(url, options);
+  const data = await convertToJson(response);
+  console.log("Data: " + response);
+  return data;
+}
+
