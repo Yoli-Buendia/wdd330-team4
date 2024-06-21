@@ -42,20 +42,25 @@ export async function checkout(payload) {
 
 export async function getJson(url) {
   const data = await fetch(url)
-  .then(convertToJson);
+    .then(convertToJson);
   // .then((data) => console.log("JSON " + JSON.stringify(data)))
   // .then((data) => JSON.parse(data));
-  
+
   return data;
 }
 
 export async function loginRequest(creds) {
-  const url = baseURL + "login/"
-  const data = await fetch(url, {method: "POST",body: JSON.stringify(creds)})
-  // const data = await fetch(url, {method: "POST",body: JSON.stringify({ email: "user1@email.com" , password: "user1" })})
-  .then(convertToJson);
+  const url = baseURL + "login";
+  const user = JSON.stringify(creds);
+  const data = await fetch(url, {
+    method: "POST", headers: {
+      "Content-Type": "application/json",
+    }, body: user
+  })
+    //const data = await fetch(url, {method: "POST",body: JSON.stringify({ "email": "user1@email.com" , "password": "user1" })})
+    .then(convertToJson);
 
-  return data;
+  return data.accessToken;
 }
 
 
@@ -67,8 +72,8 @@ export async function orders(token) {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${token}`
-    } ,
-   
+    },
+
   }
 
   const response = await fetch(url, options);

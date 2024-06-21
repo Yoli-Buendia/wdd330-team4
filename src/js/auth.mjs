@@ -2,7 +2,7 @@
 import { format } from "prettier";
 import { loginRequest } from "./externalServices.mjs";
 import { alertMessage, getLocalStorage, setLocalStorage, RemoveLocalStorage } from "./utils.mjs";
-import * as jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const tokenKey = "so-token";
 export async function login(creds, redirect = "/") {
@@ -16,27 +16,27 @@ export async function login(creds, redirect = "/") {
     }
 }
 
-export function checkLogin(){
-   const token = getLocalStorage(tokenKey);
-   const valid = isTokenValid(token);
- if (valid){
-    return token
- }else {
-    RemoveLocalStorage(tokenKey)
-    const location = window.location;
-    
-    window.location = `/login/index.html?redirect=${location.pathname}`;
+export function checkLogin() {
+    const token = getLocalStorage(tokenKey);
+    const valid = isTokenValid(token);
+    if (valid) {
+        return token
+    } else {
+        RemoveLocalStorage(tokenKey)
+        const location = window.location;
+
+        window.location = `/login/index.html?redirect=${location.pathname}`;
 
     }
 
 }
 
-function isTokenValid(token){
-    if (token){
-        const tokenobj = jwt_decode(token);
+function isTokenValid(token) {
+    if (token) {
+        const tokenobj = jwtDecode(token);
         const currentDate = new Date();
-    
+
         return (tokenobj.exp * 1000 < (currentDate.getTime())) ? false : true;
     } else return false;
-       
+
 }
