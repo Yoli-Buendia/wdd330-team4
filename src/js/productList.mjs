@@ -121,7 +121,7 @@ function sortProductItemsByName(items, container) {
 }
 
 
-function modalSetup() {
+export function modalSetup() {
     let modal = qs(".modal-bg");
     // let close = qs(".close");
 
@@ -144,7 +144,7 @@ function modalSetup() {
     }
 }
 
-function productCardTemplate(product) {
+export function productCardTemplate(product) {
 
     //To display discount amount
     const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", });

@@ -350,6 +350,10 @@ button:active {
 .quick-view-btn {
   visibility: hidden;
 }
+.recProductsContainer {
+  display: flex;
+  list-style-type: none;
+}
 
 /* .quick-view-btn:hover {
   display: block;
