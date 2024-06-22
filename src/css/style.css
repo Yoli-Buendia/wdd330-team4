@@ -33,7 +33,9 @@ header {
 input {
   font-size: var(--font-base);
 }
-table, th, td {
+table,
+th,
+td {
   border: 1px solid;
   border-collapse: collapse;
   padding: 0 0.25em;
