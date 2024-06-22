@@ -10,9 +10,11 @@ export default async function productDetails(productId) {
   if (typeof product !== "undefined") {
     renderProductDetails(product);
     let imageList = product.Images.ExtraImages;
-    imageList.unshift({Src: product.Images.PrimaryExtraLarge, Title: "Main View"});
-    renderImageCarousel(imageList);
-    renderRecommendedProducts(product)
+    if (imageList) {
+      imageList.unshift({Src: product.Images.PrimaryExtraLarge, Title: "Main View"});
+      renderImageCarousel(imageList);
+    }
+    renderRecommendedProducts(product);
   }
   else {
     renderEmptyPage();
