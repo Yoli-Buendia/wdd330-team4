@@ -1,5 +1,6 @@
 import { setLocalStorage, getLocalStorage, qs, getCartCount, renderListWithTemplate } from "./utils.mjs";
-import { findProductById } from "./externalServices.mjs";
+import { modalSetup, productCardTemplate } from "./productList.mjs";
+import { findProductById, getProductsByCategory } from "./externalServices.mjs";
 
 
 export default async function productDetails(productId) {
@@ -9,8 +10,11 @@ export default async function productDetails(productId) {
   if (typeof product !== "undefined") {
     renderProductDetails(product);
     let imageList = product.Images.ExtraImages;
-    imageList.unshift({Src: product.Images.PrimaryExtraLarge, Title: "Main View"});
-    renderImageCarousel(imageList);
+    if (imageList) {
+      imageList.unshift({Src: product.Images.PrimaryExtraLarge, Title: "Main View"});
+      renderImageCarousel(imageList);
+    }
+    renderRecommendedProducts(product);
   }
   else {
     renderEmptyPage();
@@ -104,4 +108,23 @@ function previewImage() {
 function displayImage(src) {
   qs("#productImageXL").setAttribute("srcset", src);
   qs("#productImage").setAttribute("src", src);
+}
+
+async function renderRecommendedProducts(product){
+  const products = await getProductsByCategory(product.Category);
+  const randomProducts = getRandomProducts(products, product);
+  
+  const header = document.getElementById("recProductsHeader")
+  if (header){
+    header.innerText = "Recommended Products";
+    const recProductsContainer = qs(".recProductsContainer");
+    renderListWithTemplate(productCardTemplate, recProductsContainer, randomProducts);
+    modalSetup();
+  }
+}
+
+function getRandomProducts(products, currentProduct){
+  products = products.filter(number => number.Id !== currentProduct.Id);
+  let randomProducts = products.sort(() => 0.5 - Math.random());
+  return randomProducts.slice(0, 3);
 }
