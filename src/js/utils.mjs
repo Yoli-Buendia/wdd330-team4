@@ -142,7 +142,7 @@ function alertMessageTemplate(message, actionText) {
 }
 
 export function ordersTemplate(order) {
-  return `<li class="order">${order.fname}, ${order.lname}, ${order.id}, ${order.orderDate}</li>`;
+  return `<tr><td>${order.id}</td><td>${order.fname}</td><td>${order.lname}</td><td>${order.orderDate}</td></tr>`;
 }
 
 // takes the close button's selector, a callback function for the close action,

@@ -33,10 +33,8 @@ export async function checkout(payload) {
     },
     body: JSON.stringify(payload)
   }
-
   const response = await fetch(url, options);
   const data = await convertToJson(response);
-  console.log("Data: " + response);
   return data;
 }
 
@@ -68,12 +66,9 @@ export async function orders(token) {
     headers: {
       "Authorization": `Bearer ${token}`
     },
-
   }
-
   const response = await fetch(url, options);
   const data = await convertToJson(response);
-  console.log("Data: " + response);
   return data;
 }
 
