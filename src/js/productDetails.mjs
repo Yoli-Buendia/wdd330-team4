@@ -102,7 +102,6 @@ function previewImage() {
 }
 
 function displayImage(src) {
-  console.log(src);
   qs("#productImageXL").setAttribute("srcset", src);
   qs("#productImage").setAttribute("src", src);
 }

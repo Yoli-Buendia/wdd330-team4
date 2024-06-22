@@ -33,18 +33,42 @@ export async function checkout(payload) {
     },
     body: JSON.stringify(payload)
   }
-
   const response = await fetch(url, options);
   const data = await convertToJson(response);
-  console.log("Data: " + response);
   return data;
 }
 
 export async function getJson(url) {
   const data = await fetch(url)
-  .then(convertToJson);
-  // .then((data) => console.log("JSON " + JSON.stringify(data)))
-  // .then((data) => JSON.parse(data));
-  
+    .then(convertToJson);
   return data;
 }
+
+export async function loginRequest(creds) {
+  const url = baseURL + "login";
+  const user = JSON.stringify(creds);
+  const data = await fetch(url, {
+    method: "POST", headers: {
+      "Content-Type": "application/json",
+    }, body: user
+  }).then(convertToJson);
+
+  return data.accessToken;
+}
+
+
+
+
+export async function orders(token) {
+  const url = baseURL + `orders`;
+  const options = {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+  }
+  const response = await fetch(url, options);
+  const data = await convertToJson(response);
+  return data;
+}
+

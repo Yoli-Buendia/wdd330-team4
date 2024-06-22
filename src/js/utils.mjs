@@ -141,6 +141,10 @@ function alertMessageTemplate(message, actionText) {
           <span class="close message-close">${actionText}</span></li>`;
 }
 
+export function ordersTemplate(order) {
+  return `<tr><td>${order.id}</td><td>${order.fname}</td><td>${order.lname}</td><td>${order.orderDate}</td></tr>`;
+}
+
 // takes the close button's selector, a callback function for the close action,
 // and optionally, the number of parent elements up to apply the callback function
 export function closeX(selector, callback, level = 1) {
